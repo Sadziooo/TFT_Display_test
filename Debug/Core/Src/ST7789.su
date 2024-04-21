@@ -1,0 +1,17 @@
+../Core/Src/ST7789.c:171:13:ST7789_cmd	16	static
+../Core/Src/ST7789.c:178:13:ST7789_data	16	static
+../Core/Src/ST7789.c:185:13:ST7789_send	16	static
+../Core/Src/ST7789.c:193:6:ST7789_init	24	static
+../Core/Src/ST7789.c:221:9:ST7789_read_id	24	static
+../Core/Src/ST7789.c:236:13:ST7789_data16	24	static
+../Core/Src/ST7789.c:243:13:ST7789_data_bulk	16	static
+../Core/Src/ST7789.c:250:13:ST7789_set_window	24	static
+../Core/Src/ST7789.c:260:6:ST7789_fill_box	32	static
+../Core/Src/ST7789.c:269:6:ST7789_draw_image	32	static
+../Core/Src/ST7789.c:277:6:ST7789_draw_image_fast	56	static
+../Core/Src/ST7789.c:305:6:ST7789_put_pixel	32	static
+../Core/Src/ST7789.c:309:6:ST7789_draw_line	40	static
+../Core/Src/ST7789.c:363:6:ST7789_draw_rectangle	32	static
+../Core/Src/ST7789.c:370:6:ST7789_draw_circle	40	static
+../Core/Src/ST7789.c:405:6:ST7789_write_char	40	static
+../Core/Src/ST7789.c:422:6:ST7789_write_string	32	static
