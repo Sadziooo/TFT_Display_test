@@ -163,7 +163,7 @@ static void ST7789_data(uint8_t data);
 static void ST7789_send(uint16_t value);
 static uint8_t ST7789_read_id(void);
 static void ST7789_data16(uint16_t value);
-static void ST7789_data_bulk(const uint8_t* data, uint16_t size);
+static void ST7789_data_bulk(uint8_t* data, size_t size);
 static void ST7789_set_window(int x, int y, int width, int height);
 
 //----------------------------------------------------------------------|
@@ -242,15 +242,15 @@ static void ST7789_data16(uint16_t value) {
     ST7789_data_bulk(data, 2);
 }
 
-static void ST7789_data_bulk(const uint8_t* data, uint16_t size) {
+static void ST7789_data_bulk(uint8_t* data, size_t size) {
     HAL_GPIO_WritePin(LCD_DC_GPIO_Port, LCD_DC_Pin, GPIO_PIN_SET);
     HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_RESET);
-    HAL_SPI_Transmit(&hspi1, (uint8_t*) data, size, HAL_MAX_DELAY);
+    HAL_SPI_Transmit(&hspi1, data, size, HAL_MAX_DELAY);
     HAL_GPIO_WritePin(LCD_CS_GPIO_Port, LCD_CS_Pin, GPIO_PIN_SET);
 }
 
 static void ST7789_set_window(int x, int y, int width, int height) {
-	ST7789_cmd(ST7789_CASET);
+  ST7789_cmd(ST7789_CASET);
   ST7789_data16(LCD_OFFSET_X + x);
   ST7789_data16(LCD_OFFSET_X + x + width - 1);
 	
@@ -277,7 +277,7 @@ void ST7789_draw_image(int x, int y, int width, int height, const uint8_t* data)
 }
 
 void ST7789_draw_image_fast(int x, int y, int width, int height, const uint16_t* data) {
-    const int chunk_size = MAX_CHUNK; // Number of pixels per chunk
+    const int chunk_size = MAX_CHUNK;
     int pixels_remaining = width * height;
     int pixels_sent = 0;
 
@@ -396,20 +396,29 @@ void ST7789_draw_circle(uint16_t x0, uint16_t y0, uint8_t r, uint16_t color) {
 }
 
 void ST7789_write_char(uint16_t x, uint16_t y, char ch, FontDef font, uint16_t color, uint16_t bgcolor) {
-	uint32_t i, b, j;
+    uint32_t i, b, j;
+    uint16_t char_buffer_size = font.height * font.width * 2;
+    uint8_t char_buffer[char_buffer_size];
+    uint16_t buffer_index = 0;
 
-	ST7789_set_window(x, y, x + font.width - 1, y + font.height - 1);
+    for (i = 0; i < font.height; i++) {
+    		b = font.data[(ch - 32) * font.height + i];
+    		for (j = 0; j < font.width; j++) {
+    			if ((b << j) & 0x8000) {
+    				uint8_t data[] = {color >> 8, color & 0xFF};
+    				char_buffer[buffer_index++] = data[0];
+    				char_buffer[buffer_index++] = data[1];
+    			} else {
+    				uint8_t data[] = {bgcolor >> 8, bgcolor & 0xFF};
+    				char_buffer[buffer_index++] = data[0];
+    				char_buffer[buffer_index++] = data[1];
+    			}
+    		}
+    	}
 
-	for (i = 0; i < font.height; i++) {
-		b = font.data[(ch - 32) * font.height + i];
-		for (j = 0; j < font.width; j++) {
-			if ((b << j) & 0x8000) {
-				ST7789_put_pixel(x + j, y + i, color);
-			} else {
-				ST7789_put_pixel(x + j, y + i, bgcolor);
-			}
-		}
-	}
+    ST7789_set_window(x, y, font.width, font.height);
+    ST7789_cmd(ST7789_RAMWR);
+    ST7789_data_bulk(char_buffer, sizeof(char_buffer));
 }
 
 void ST7789_write_string(uint16_t x, uint16_t y, const char *str, FontDef font, uint16_t color, uint16_t bgcolor) {
@@ -431,6 +440,5 @@ void ST7789_write_string(uint16_t x, uint16_t y, const char *str, FontDef font, 
 		x += font.width;
 		str++;
 	}
-
 }
 

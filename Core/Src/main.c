@@ -102,12 +102,6 @@ int main(void)
   ST7789_fill_box(0, 150, DISPLAY_W, 30, WHITE);
   ST7789_fill_box(0, 180, DISPLAY_W, 30, LGRAYBLUE);
   ST7789_fill_box(0, 210, DISPLAY_W, 30, BLACK);
-//
-//  HAL_Delay(2000);
-//
-//  ST7789_draw_image(0, 0, DISPLAY_W, DISPLAY_H, dicaprio);
-//
-//  ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
 
   HAL_Delay(2000);
 
@@ -122,7 +116,16 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  HAL_Delay(2000);
 
+	  ST7789_draw_image_fast(0, 0, DISPLAY_W, DISPLAY_H, (uint16_t* )dicaprio);
+
+	  ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
+
+	  ST7789_write_string(70, 100, "SADZIOOO", Font_11x18, YELLOW, BLACK);
+
+	  ST7789_write_string(50, 10, "It ain't much,", Font_7x10, RED, BLACK);
+	  ST7789_write_string(80, 25, "but it's honest work!", Font_7x10, RED, BLACK);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
