@@ -24,5 +24,7 @@ C_DEPS :=
 SUBDIRS := \
 Core/Src \
 Core/Startup \
+Drivers/Fonts \
+Drivers/ST7789_Driver \
 Drivers/STM32F4xx_HAL_Driver/Src \
 

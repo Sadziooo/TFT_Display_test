@@ -102,16 +102,16 @@ int main(void)
   ST7789_fill_box(0, 150, DISPLAY_W, 30, WHITE);
   ST7789_fill_box(0, 180, DISPLAY_W, 30, LGRAYBLUE);
   ST7789_fill_box(0, 210, DISPLAY_W, 30, BLACK);
+//
+//  HAL_Delay(2000);
+//
+//  ST7789_draw_image(0, 0, DISPLAY_W, DISPLAY_H, dicaprio);
+//
+//  ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
 
   HAL_Delay(2000);
 
-  ST7789_draw_image(0, 0, DISPLAY_W, DISPLAY_H, dicaprio);
-
-  ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
-
-  HAL_Delay(2000);
-
-  ST7789_draw_image_fast(0, 0, DISPLAY_W, DISPLAY_H, dicaprio);
+  ST7789_draw_image_fast(0, 0, DISPLAY_W, DISPLAY_H, (uint16_t* )dicaprio);
 
   ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
 

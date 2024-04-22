@@ -126,6 +126,8 @@
 #define LCD_OFFSET_X	0
 #define LCD_OFFSET_Y	0
 
+#define MAX_CHUNK 12800
+
 //----------------------------------------------------------------------|
 //------------------------ VARIABLES ----------------------------<
 //----------------------------------------------------------------------|
@@ -275,9 +277,7 @@ void ST7789_draw_image(int x, int y, int width, int height, const uint8_t* data)
 }
 
 void ST7789_draw_image_fast(int x, int y, int width, int height, const uint16_t* data) {
-    const int chunk_size = 12800; // Number of pixels per chunk
-    int current_x = x;
-    int current_y = y;
+    const int chunk_size = MAX_CHUNK; // Number of pixels per chunk
     int pixels_remaining = width * height;
     int pixels_sent = 0;
 
@@ -286,16 +286,9 @@ void ST7789_draw_image_fast(int x, int y, int width, int height, const uint16_t*
         int chunk_rows = chunk_pixels / width;
         int chunk_cols = (chunk_pixels % width == 0) ? width : (chunk_pixels % width);
 
-        ST7789_set_window(current_x, current_y, chunk_cols, chunk_rows);
+        ST7789_set_window(x + (pixels_sent % width), y + (pixels_sent / width), chunk_cols, chunk_rows);
         ST7789_cmd(ST7789_RAMWR);
-        ST7789_data_bulk((uint8_t*)(data + pixels_sent), chunk_pixels * sizeof(uint16_t) * 2);
-
-        // Update current position
-        current_x += chunk_cols;
-        if (current_x >= x + width) {
-            current_x = x;
-            current_y += chunk_rows;
-        }
+        ST7789_data_bulk((uint8_t*)(data + pixels_sent), chunk_pixels * sizeof(uint16_t));
 
         pixels_remaining -= chunk_pixels;
         pixels_sent += chunk_pixels;
