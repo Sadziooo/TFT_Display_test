@@ -26,6 +26,7 @@
 #include "ST7789.h"
 #include "Fonts.h"
 #include "dicaprio.c"
+#include "main_scru.c"
 
 /* USER CODE END Includes */
 
@@ -116,16 +117,10 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-	  HAL_Delay(2000);
-
-	  ST7789_draw_image_fast(0, 0, DISPLAY_W, DISPLAY_H, (uint16_t* )dicaprio);
-
 	  ST7789_write_string(70, 200, "Cheers mate!", Font_16x26, WHITE, BLACK);
-
-	  ST7789_write_string(70, 100, "SADZIOOO", Font_11x18, YELLOW, BLACK);
-
-	  ST7789_write_string(50, 10, "It ain't much,", Font_7x10, RED, BLACK);
-	  ST7789_write_string(80, 25, "but it's honest work!", Font_7x10, RED, BLACK);
+	  HAL_Delay(2000);
+	  ST7789_write_string(70, 200, "Wazzuuuupp!", Font_16x26, WHITE, BLACK);
+	  HAL_Delay(2000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */

@@ -13,7 +13,7 @@
 ../Src/st7789.c:324:6:ST7789_DrawCircle	40	static
 ../Src/st7789.c:368:6:ST7789_DrawImage	24	static
 ../Src/st7789.c:388:6:ST7789_InvertColors	16	static
-../Src/st7789.c:404:6:ST7789_WriteChar	48	static
+../Src/st7789.c:404:6:ST7789_WriteChar	40	static
 ../Src/st7789.c:435:6:ST7789_WriteString	32	static
 ../Src/st7789.c:466:6:ST7789_DrawFilledRectangle	40	static
 ../Src/st7789.c:500:6:ST7789_DrawTriangle	32	static

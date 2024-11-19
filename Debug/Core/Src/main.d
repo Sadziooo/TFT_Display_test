@@ -30,7 +30,7 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
  ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/gpio.h \
  C:/Moje_pliki/Programowanie/STM/TFT_Display_test/Drivers/ST7789_Driver/ST7789.h \
  C:/Moje_pliki/Programowanie/STM/TFT_Display_test/Drivers/Fonts/Fonts.h \
- ../Core/Src/dicaprio.c
+ ../Core/Src/dicaprio.c ../Core/Src/main_scru.c
 ../Core/Inc/main.h:
 ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h:
 ../Core/Inc/stm32f4xx_hal_conf.h:
@@ -66,3 +66,4 @@ Core/Src/main.o: ../Core/Src/main.c ../Core/Inc/main.h \
 C:/Moje_pliki/Programowanie/STM/TFT_Display_test/Drivers/ST7789_Driver/ST7789.h:
 C:/Moje_pliki/Programowanie/STM/TFT_Display_test/Drivers/Fonts/Fonts.h:
 ../Core/Src/dicaprio.c:
+../Core/Src/main_scru.c:
